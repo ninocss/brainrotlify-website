@@ -152,7 +152,7 @@
                 if (response.ok) {
                     localStorage.setItem('geminiToken', token);
                     document.cookie = "loggedin=true; path=/; max-age=31536000; SameSite=Strict";
-                    window.location.href = '/translator';
+                    window.location.href = './translator';
                 } else {
                     showError('Invalid API token. Please check your token and try again.');
                 }
