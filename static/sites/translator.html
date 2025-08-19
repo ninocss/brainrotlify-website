@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Brainrotlify — translate between brainrot and normal language. Private, client‑side Gemini token storage used to authenticate translations.">
+    <meta name="keywords" content="brainrot, translator, Gemini, AI, translate, Brainrotlify">
+    <meta name="author" content="nino.css">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0f172a">
+
+    <meta property="og:title" content="Brainrotlify — Talk normally with brainrotted people">
+    <meta property="og:description" content="Translate between brainrot and normal language. Your token stays in your browser; not stored on our servers.">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Brainrotlify">
+    <meta name="twitter:description" content="Translate between brainrot and normal language using your Gemini token.">
+    
+    <title>Brainrotlify</title>
+    <link rel="stylesheet" href="/static/styles/translator-style.css">
+</head>
+<body>
+    <div class="topbar">
+        <button id="theme-button" type="button">🎨</button>
+        <button id="logout-button" type="button">Logout</button>
+        <span id="token-status" aria-live="polite"></span>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const logoutBtn = document.getElementById('logout-button');
+        const statusEl = document.getElementById('token-status');
+
+        function updateStatus() {
+            const t = localStorage.getItem('geminiToken');
+            statusEl.textContent = t ? 'Token stored' : 'No token';
+        }
+
+        logoutBtn.addEventListener('click', () => {
+            document.cookie = 'loggedin=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax;';
+            localStorage.removeItem('geminiToken');
+            location.replace('/landing.html');
+        });
+
+        updateStatus();
+    });
+    </script>
+    <script>
+        document.getElementById('theme-button').addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'normal' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+        });
+    </script>
+    
+    <div class="made-by" style="position: fixed; bottom: 20px; right: 20px; background: var(--blur-bg); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 12px; padding: 0.75rem 1rem; font-size: 0.85rem; color: var(--text-secondary); z-index: 1000;">
+        <p>Made by <a href="https://github.com/ninocss" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; transition: color 0.3s ease;">nino.css</a></p>
+    </div>
+    <div class="main-content">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h1>Brainrotlify</h1>
+            </div>
+
+            <div class="mode-selector">
+                <label>
+                    <input type="radio" name="mode" value="brainrot" checked>
+                    <span>Brainrotify</span>
+                </label>
+                <label>
+                    <input type="radio" name="mode" value="anti-brainrot">
+                    <span>Anti-Brainrotify</span>
+                </label>
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <div class="welcome-message">
+                    <p>Welcome! Send a message and I'll translate it to brainrot language for you.</p>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Type your message to translate..." />
+                <button id="send-chat" class="send-chat">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const sendChatBtn = document.getElementById('send-chat');
+
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = isUser ? 'chat-message user-message' : 'chat-message ai-message';
+            messageDiv.textContent = text;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            addMessage(text, true);
+            chatInput.value = '';
+
+            const apiKey = localStorage.getItem('geminiToken');
+            if (!apiKey) {
+                addMessage('Error: No API token found.');
+                return;
+            }
+
+            try {
+                const mode = document.querySelector('input[name="mode"]:checked')?.value;
+                const urlBase = 'http://brainrotlify_api.timi2506.me:1234/';
+                const path = mode === 'anti-brainrot' ? '/antiBrainrot' : '/brainrot';
+                const res = await fetch(urlBase + path, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        apiKey: apiKey,
+                        message: text
+                    })
+                });
+
+                const contentType = res.headers.get('content-type') || '';
+                let body;
+                if (contentType.includes('application/json')) {
+                    body = await res.json();
+                    addMessage(typeof body === 'object' ? JSON.stringify(body, null, 2) : String(body));
+                } else {
+                    body = await res.text();
+                    addMessage(body);
+                }
+            } catch (err) {
+                addMessage('Error: ' + (err?.message || String(err)));
+            }
+        }
+
+        sendChatBtn.addEventListener('click', sendMessage);
+
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        chatInput.focus();
+    });
+    </script>
+
+    <script>
+        (function() {
+            function getCookie(name) {
+                const match = document.cookie.split('; ').find(c => c.startsWith(name + '='));
+                return match ? decodeURIComponent(match.split('=')[1]) : null;
+            }
+
+            const logged = getCookie('loggedin');
+            if (logged !== 'true') {
+                location.replace('/landing.html');
+            }
+        })();
+    </script>
+</body>
+</html>

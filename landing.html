@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Brainrotlify — translate between brainrot and normal language. Private, client‑side Gemini token storage used to authenticate translations.">
+    <meta name="keywords" content="brainrot, translator, Gemini, AI, translate, Brainrotlify">
+    <meta name="author" content="nino.css">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0f172a">
+
+    <meta property="og:title" content="Brainrotlify — Talk normally with brainrotted people">
+    <meta property="og:description" content="Translate between brainrot and normal language. Your token stays in your browser; not stored on our servers.">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Brainrotlify">
+    <meta name="twitter:description" content="Translate between brainrot and normal language using your Gemini token.">
+
+    <title>Welcome to Brainrotlify!</title>
+    <link rel="stylesheet" href="/static/styles/landing-style.css">
+</head>
+<body>
+    <div class="topbar">
+        <div class="title">Brainrotlify</div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <button id="theme-button">🎨</button>
+            <span id="token-status" aria-live="polite"></span>
+        </div>
+    </div>
+
+    <div class="made-by" style="position: fixed; bottom: 20px; right: 20px; background: var(--blur-bg); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 12px; padding: 0.75rem 1rem; font-size: 0.85rem; color: var(--text-secondary); z-index: 1000;">
+        <p>Made by <a href="https://github.com/ninocss" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; transition: color 0.3s ease;">nino.css</a></p>
+    </div>
+    <div class="hero-title">
+        <h1>Brainrotlify</h1>
+    </div>
+
+    <div class="scroll-arrow" onclick="scrollToNext()">⬇</div>
+    
+    <div class="intro">  
+        <div class="description">
+            <p>We have brainrot and we have brainrotted people.</p>
+            <p>You don't want to get brainrotted? Then use this translator to talk normally with brainrotted people!</p>
+            <p>You can also translate phrases from brainrot to normal language!</p>
+        </div>
+    </div>
+
+    <div class="login-form">
+        <h2>Your Gemini Token</h2>
+        <div class="token-note" style="margin-bottom:1rem; padding:0.75rem 1rem; border-radius:10px; background:var(--blur-bg); backdrop-filter:blur(8px); border:1px solid var(--border); display:flex; gap:0.75rem; align-items:flex-start;">
+            <div aria-hidden="true" style="font-size:1.25rem; line-height:1;">🔒</div>
+            <div>
+                <div style="font-weight:600; color:var(--text-primary);">Privacy-first token storage</div>
+                <div style="font-size:0.9rem; color:var(--text-secondary); margin-top:0.25rem;">
+                    Your token is stored only in your browser (localStorage) and is used solely to authenticate requests to Gemini. It is not stored on our servers or shared with anyone.
+                </div>
+                <div style="margin-top:0.5rem;">
+                    <small>
+                        <a href="https://ai.google.dev/gemini-api/docs" target="_blank" id="learn-more-token" style="color:var(--accent); text-decoration:none;">Learn more</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+        <form id="tokenForm">
+            <div class="form-group">
+            <input type="password" id="geminiToken" name="geminiToken" placeholder="AIzaSy..." required>
+            </div>
+            <button type="submit">Continue</button>
+        </form>
+        <p class="token-help">
+            <small>Don't have a token? <a href="https://ai.google.dev/" target="_blank" rel="noopener">Get one here</a></small>
+        </p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Brainrotlify. All rights reserved. * Website made by <a href="https://github.com/ninocss" target="_blank" rel="noopener">nino.css</a></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusEl = document.getElementById('token-status');
+            const topbar = document.querySelector('.topbar');
+            const intro = document.querySelector('.intro');
+            const loginForm = document.querySelector('.login-form');
+            const footer = document.querySelector('footer');
+            const scrollArrow = document.querySelector('.scroll-arrow');
+
+            function updateStatus() {
+                const t = localStorage.getItem('geminiToken');
+                statusEl.textContent = t ? 'Token stored' : 'No token';
+            }
+
+            function handleScroll() {
+                const scrollY = window.scrollY;
+                const windowHeight = window.innerHeight;
+                
+                if (scrollY > windowHeight * 0.1) {
+                    scrollArrow.classList.add('hidden');
+                } else {
+                    scrollArrow.classList.remove('hidden');
+                }
+                
+                if (scrollY > windowHeight * 0.3) {
+                    topbar.classList.add('visible');
+                } else {
+                    topbar.classList.remove('visible');
+                }
+
+                if (scrollY > windowHeight * 0.6) {
+                    intro.classList.add('visible');
+                }
+
+                if (scrollY > windowHeight * 1.2) {
+                    loginForm.classList.add('visible');
+                }
+
+                if (scrollY > windowHeight * 1.8) {
+                    footer.classList.add('visible');
+                }
+            }
+
+            window.addEventListener('scroll', handleScroll);
+            updateStatus();
+        });
+
+        function scrollToNext() {
+            window.scrollTo({
+                top: window.innerHeight * 0.6,
+                behavior: 'smooth'
+            });
+        }
+
+        document.getElementById('theme-button').addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'normal' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+        });
+
+        document.getElementById('tokenForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const token = document.getElementById('geminiToken').value;
+            const button = this.querySelector('button');
+            
+            button.textContent = 'Validating...';
+            button.disabled = true;
+            
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${token}`);
+                
+                if (response.ok) {
+                    localStorage.setItem('geminiToken', token);
+                    document.cookie = "loggedin=true; path=/; max-age=31536000; SameSite=Strict";
+                    window.location.href = './static/sites/translator.html';
+                } else {
+                    showError('Invalid API token. Please check your token and try again.');
+                }
+            } catch (error) {
+                showError('Failed to validate token. Please check your internet connection and try again.');
+            } finally {
+                button.textContent = 'Continue';
+                button.disabled = false;
+            }
+        });
+
+        function showError(message) {
+            const existingError = document.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.style.color = 'red';
+            errorDiv.style.marginTop = '10px';
+            errorDiv.style.textAlign = 'center';
+            errorDiv.textContent = message;
+            
+            document.querySelector('.login-form').appendChild(errorDiv);
+        }
+    </script>
+</body>
+</html>
