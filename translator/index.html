@@ -40,7 +40,7 @@
         logoutBtn.addEventListener('click', () => {
             document.cookie = 'loggedin=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax;';
             localStorage.removeItem('geminiToken');
-            location.replace('/landing.html');
+            location.replace('/');
         });
 
         updateStatus();
