@@ -18,7 +18,7 @@
     <meta name="twitter:description" content="Translate between brainrot and normal language using your Gemini token.">
 
     <title>Welcome to Brainrotlify!</title>
-    <link rel="stylesheet" href="/static/styles/landing-style.css">
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <div class="topbar">
@@ -152,7 +152,7 @@
                 if (response.ok) {
                     localStorage.setItem('geminiToken', token);
                     document.cookie = "loggedin=true; path=/; max-age=31536000; SameSite=Strict";
-                    window.location.href = './static/sites/translator.html';
+                    window.location.href = '/translator';
                 } else {
                     showError('Invalid API token. Please check your token and try again.');
                 }
