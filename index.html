@@ -13,9 +13,9 @@
     <meta property="og:description" content="Translate between brainrot and normal language. Your token stays in your browser; not stored on our servers.">
     <meta property="og:type" content="website">
 
-    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Brainrotlify">
     <meta name="twitter:description" content="Translate between brainrot and normal language using your Gemini token.">
+    
 
     <title>Welcome to Brainrotlify!</title>
     <link rel="stylesheet" href="./styles.css">
@@ -23,6 +23,25 @@
 <body>
     <div class="topbar">
         <div class="title">Brainrotlify</div>
+        <div style="display:flex;align-items:center;gap:0.6rem;">
+            <button id="back-button" onclick="history.back()" aria-label="Go back" title="Go back"
+                style="display:flex;align-items:center;gap:0.5rem;padding:0.35rem 0.6rem;border-radius:10px;background:var(--blur-bg);backdrop-filter:blur(8px);border:1px solid var(--border);color:var(--text);cursor:pointer;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6"></path>
+                </svg>
+                <span style="font-size:0.95rem;">Back</span>
+            </button>
+
+            <a href="/" aria-label="Home" title="Home"
+                style="display:flex;align-items:center;gap:0.4rem;padding:0.35rem 0.6rem;border-radius:10px;background:transparent;border:1px solid transparent;color:var(--text-secondary);text-decoration:none;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 11l9-7 9 7"></path>
+                    <path d="M9 22V12h6v10"></path>
+                </svg>
+                <span style="font-size:0.85rem;">Home</span>
+            </a>
+        </div>
+
         <div style="display: flex; align-items: center; gap: 1rem;">
             <button id="theme-button">🎨</button>
             <span id="token-status" aria-live="polite"></span>
@@ -57,7 +76,7 @@
                 </div>
                 <div style="margin-top:0.5rem;">
                     <small>
-                        <a href="https://ai.google.dev/gemini-api/docs" target="_blank" id="learn-more-token" style="color:var(--accent); text-decoration:none;">Learn more</a>
+                        <a href="./privacy/" target="_blank" id="learn-more-token" style="color:var(--accent); text-decoration:none;">Learn more</a>
                     </small>
                 </div>
             </div>

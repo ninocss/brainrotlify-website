@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy of Brainrotlify</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="topbar visible">
+        <div class="title">Brainrotlify</div>
+        <div style="display:flex;align-items:center;gap:0.6rem;">
+            <button id="back-button" onclick="history.back()" aria-label="Go back" title="Go back"
+                style="display:flex;align-items:center;gap:0.5rem;padding:0.35rem 0.6rem;border-radius:10px;background:var(--blur-bg);backdrop-filter:blur(8px);border:1px solid var(--border);color:var(--text);cursor:pointer;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6"></path>
+                </svg>
+                <span style="font-size:0.95rem;">Back</span>
+            </button>
+
+            <a href="/" aria-label="Home" title="Home"
+                style="display:flex;align-items:center;gap:0.4rem;padding:0.35rem 0.6rem;border-radius:10px;background:transparent;border:1px solid transparent;color:var(--text-secondary);text-decoration:none;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 11l9-7 9 7"></path>
+                    <path d="M9 22V12h6v10"></path>
+                </svg>
+                <span style="font-size:0.85rem;">Home</span>
+            </a>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <button id="theme-button">🎨</button>
+            <span id="token-status" aria-live="polite"></span>
+        </div>
+    </div>
+
+    <div class="made-by" style="position: fixed; bottom: 20px; right: 20px; background: var(--blur-bg); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 12px; padding: 0.75rem 1rem; font-size: 0.85rem; color: var(--text-secondary); z-index: 1000;">
+        <p>Made by <a href="https://github.com/ninocss" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; transition: color 0.3s ease;">nino.css</a></p>
+    </div>
+
+    <div class="hero-title">
+        <h1>Privacy Policy</h1>
+    </div>
+
+    <div class="hero-content">
+        <p>Your privacy is important to us. This policy outlines how we handle your data.</p>
+        <div class="metadata">
+        <p><strong>Last Updated:</strong> <span class="highlight">24/08/2025</span></p>
+    </div>
+
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <ul>
+            <li><a href="#controller">1. Controller Information</a></li>
+            <li><a href="#overview">2. Overview</a></li>
+            <li><a href="#legal-basis">3. Legal Basis for Processing</a></li>
+            <li><a href="#data-collection">4. Data We Collect</a></li>
+            <li><a href="#data-usage">5. How We Use Your Data</a></li>
+            <li><a href="#data-sharing">6. Data Sharing and Third Parties</a></li>
+            <li><a href="#data-retention">7. Data Retention</a></li>
+            <li><a href="#data-transfers">8. International Data Transfers</a></li>
+            <li><a href="#data-security">9. Data Security</a></li>
+            <li><a href="#gdpr-rights">10. Your Rights Under GDPR</a></li>
+            <li><a href="#exercise-rights">11. How to Exercise Your Rights</a></li>
+            <li><a href="#complaints">12. Complaints and Supervisory Authority</a></li>
+            <li><a href="#dpo">13. Data Protection Officer</a></li>
+            <li><a href="#children">14. Children's Privacy</a></li>
+            <li><a href="#changes">15. Changes to This Policy</a></li>
+            <li><a href="#contact">16. Contact Information</a></li>
+            <li><a href="#technical">17. Technical Implementation Notes</a></li>
+        </ul>
+    </div>
+
+    <h2 id="controller">1. Controller Information</h2>
+    
+    <div class="contact-info">
+        <p><strong>Service Name:</strong> Brainrotlify</p>
+        <p><strong>Controller:</strong> <span class="highlight">timi2506</span></p>
+        <p><strong>Contact Information:</strong></p>
+        <ul>
+            <li>Email: <span class="highlight">timi2506@github.io</span></li>
+        </ul>
+    </div>
+
+    <h2 id="overview">2. Overview</h2>
+    <p>Brainrotlify is an API service that transforms text using AI technology. This privacy policy explains how we collect, use, and protect your personal data when you use our service, in compliance with the General Data Protection Regulation (GDPR) and other applicable EU privacy laws.</p>
+
+    <h2 id="legal-basis">3. Legal Basis for Processing</h2>
+    <p>We process your personal data based on:</p>
+    <ul>
+        <li><strong>Legitimate Interest</strong> (Article 6(1)(f) GDPR): To provide and improve our text transformation service</li>
+        <li><strong>Consent</strong> (Article 6(1)(a) GDPR): Where explicitly provided for specific processing activities</li>
+        <li><strong>Contract Performance</strong> (Article 6(1)(b) GDPR): To fulfill our service obligations</li>
+    </ul>
+
+    <h2 id="data-collection">4. Data We Collect</h2>
+
+    <h3>4.1 Data You Provide</h3>
+    <ul>
+        <li><strong>Text Messages:</strong> The text content you submit for transformation via our API endpoints (<code>/brainrot</code> and <code>/antiBrainrot</code>)</li>
+        <li><strong>API Keys:</strong> Google Gemini API keys (if provided in requests)</li>
+    </ul>
+
+    <h3>4.2 Technical Data</h3>
+    <ul>
+        <li><strong>Server Logs:</strong> IP addresses, request timestamps, HTTP methods, response codes</li>
+        <li><strong>Request Metadata:</strong> Content-Type headers, user agents, request sizes</li>
+        <li><strong>Error Information:</strong> Technical error messages and debugging information</li>
+    </ul>
+
+    <h3>4.3 Data We Do Not Collect</h3>
+    <ul>
+        <li>We do not use cookies or tracking technologies</li>
+        <li>We do not collect personal identification information beyond what's technically necessary</li>
+        <li>We do not require user registration or accounts</li>
+    </ul>
+
+    <h2 id="data-usage">5. How We Use Your Data</h2>
+
+    <h3>5.1 Primary Purposes</h3>
+    <ul>
+        <li><strong>Service Delivery:</strong> Processing your text through AI transformation</li>
+        <li><strong>API Functionality:</strong> Routing requests to Google's Gemini API service</li>
+        <li><strong>Error Handling:</strong> Providing meaningful error responses</li>
+    </ul>
+
+    <h3>5.2 Technical Purposes</h3>
+    <ul>
+        <li><strong>System Monitoring:</strong> Ensuring service availability and performance</li>
+        <li><strong>Security:</strong> Protecting against abuse and unauthorized access</li>
+        <li><strong>Debugging:</strong> Resolving technical issues and improving service quality</li>
+    </ul>
+
+    <h2 id="data-sharing">6. Data Sharing and Third Parties</h2>
+
+    <h3>6.1 Google Gemini API</h3>
+    <ul>
+        <li><strong>Purpose:</strong> Your text messages are sent to Google's Gemini API for AI processing</li>
+        <li><strong>Legal Basis:</strong> Necessary for contract performance</li>
+        <li><strong>Data Transferred:</strong> Text content and API authentication</li>
+        <li><strong>Google's Privacy Policy:</strong> <a href="https://policies.google.com/privacy" target="_blank">https://policies.google.com/privacy</a></li>
+    </ul>
+
+    <h3>6.2 No Other Sharing</h3>
+    <ul>
+        <li>We do not sell, rent, or share your data with other third parties</li>
+        <li>We do not use your data for advertising or marketing purposes</li>
+        <li>We do not create user profiles or behavioral tracking</li>
+    </ul>
+
+    <h2 id="data-retention">7. Data Retention</h2>
+
+    <h3>7.1 Retention Periods</h3>
+    <ul>
+        <li><strong>Text Messages:</strong> Not permanently stored; processed in memory and discarded after response</li>
+        <li><strong>Server Logs:</strong> Retained for <span class="highlight">[30 days]</span> for technical monitoring purposes</li>
+        <li><strong>Error Logs:</strong> Retained for <span class="highlight">[90 days]</span> for debugging and service improvement</li>
+    </ul>
+
+    <h3>7.2 Deletion</h3>
+    <ul>
+        <li>Data is automatically deleted according to retention schedules</li>
+        <li>No manual deletion process is required as we don't maintain persistent user data</li>
+    </ul>
+
+    <h2 id="data-transfers">8. International Data Transfers</h2>
+
+    <h3>8.1 Google Services</h3>
+    <ul>
+        <li>Your data may be processed by Google in countries outside the EU/EEA</li>
+        <li>Google implements appropriate safeguards including Standard Contractual Clauses</li>
+        <li>Google maintains certifications for international data transfers</li>
+    </ul>
+
+    <h3>8.2 Our Infrastructure</h3>
+    <ul>
+        <li>Our servers are located in <span class="highlight">[Your Server Location]</span></li>
+        <li><span class="highlight">[If applicable: We use appropriate safeguards for any international transfers]</span></li>
+    </ul>
+
+    <h2 id="data-security">9. Data Security</h2>
+
+    <h3>9.1 Technical Measures</h3>
+    <ul>
+        <li><strong>HTTPS Encryption:</strong> All API communications use TLS/SSL encryption</li>
+        <li><strong>Access Controls:</strong> Restricted server access and authentication</li>
+        <li><strong>Regular Updates:</strong> Security patches and system updates</li>
+        <li><strong>Monitoring:</strong> Automated security monitoring and alerting</li>
+    </ul>
+
+    <h3>9.2 Organizational Measures</h3>
+    <ul>
+        <li><strong>Data Minimization:</strong> We collect only necessary data</li>
+        <li><strong>Purpose Limitation:</strong> Data used only for stated purposes</li>
+        <li><strong>Staff Training:</strong> <span class="highlight">[If applicable: Regular privacy and security training]</span></li>
+    </ul>
+
+    <h2 id="gdpr-rights">10. Your Rights Under GDPR</h2>
+    <p>You have the following rights regarding your personal data:</p>
+
+    <h3>10.1 Access (Article 15)</h3>
+    <ul>
+        <li>Right to know what personal data we process about you</li>
+        <li><strong>How to Exercise:</strong> Contact us using the information in Section 1</li>
+    </ul>
+
+    <h3>10.2 Rectification (Article 16)</h3>
+    <ul>
+        <li>Right to correct inaccurate personal data</li>
+        <li><strong>Note:</strong> Given our service model, this primarily applies to contact information</li>
+    </ul>
+
+    <h3>10.3 Erasure (Article 17)</h3>
+    <ul>
+        <li>Right to deletion of your personal data</li>
+        <li><strong>Note:</strong> Most data is automatically deleted due to our processing model</li>
+    </ul>
+
+    <h3>10.4 Restriction (Article 18)</h3>
+    <ul>
+        <li>Right to limit processing of your personal data in certain circumstances</li>
+    </ul>
+
+    <h3>10.5 Data Portability (Article 20)</h3>
+    <ul>
+        <li>Right to receive your data in a structured format</li>
+        <li><strong>Note:</strong> Limited applicability due to nature of our service</li>
+    </ul>
+
+    <h3>10.6 Objection (Article 21)</h3>
+    <ul>
+        <li>Right to object to processing based on legitimate interests</li>
+        <li><strong>Note:</strong> This may limit our ability to provide the service</li>
+    </ul>
+
+    <h3>10.7 Automated Decision Making (Article 22)</h3>
+    <ul>
+        <li>Our AI processing constitutes automated decision-making</li>
+        <li>You have rights regarding such processing, including human review</li>
+    </ul>
+
+    <h2 id="exercise-rights">11. How to Exercise Your Rights</h2>
+    <p>To exercise your rights, please contact us:</p>
+    <ul>
+        <li><strong>Email:</strong> <span class="highlight">[Your Email Address]</span></li>
+        <li><strong>Response Time:</strong> We will respond within 30 days</li>
+        <li><strong>Identity Verification:</strong> We may request verification to protect your privacy</li>
+        <li><strong>Free of Charge:</strong> Exercising rights is generally free</li>
+    </ul>
+
+    <h2 id="complaints">12. Complaints</h2>
+
+    <h3>12.1 Direct Contact</h3>
+    <p>If you have concerns about our data processing, please contact us first.</p>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const statusEl = document.getElementById('token-status');
+        const topbar = document.querySelector('.topbar');
+        const intro = document.querySelector('.intro');
+        const loginForm = document.querySelector('.login-form');
+        const footer = document.querySelector('footer');
+        const scrollArrow = document.querySelector('.scroll-arrow');
+        const themeButton = document.getElementById('theme-button');
+
+        function updateStatus() {
+            if (!statusEl) return;
+            const t = localStorage.getItem('geminiToken');
+            statusEl.textContent = t ? 'Token stored' : 'No token';
+            statusEl.title = t ? `Stored token (masked): ${t.slice(0, 8)}…` : '';
+        }
+
+        function handleScroll() {
+            const scrollY = window.scrollY || window.pageYOffset;
+            const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+            if (scrollArrow) {
+                if (scrollY > windowHeight * 0.1) scrollArrow.classList.add('hidden');
+                else scrollArrow.classList.remove('hidden');
+            }
+
+            if (topbar) {
+                if (scrollY > windowHeight * 0.3) topbar.classList.add('visible');
+                else topbar.classList.remove('visible');
+            }
+
+            if (intro) {
+                if (scrollY > windowHeight * 0.6) intro.classList.add('visible');
+                else intro.classList.remove('visible');
+            }
+
+            if (loginForm) {
+                if (scrollY > windowHeight * 1.2) loginForm.classList.add('visible');
+                else loginForm.classList.remove('visible');
+            }
+
+            if (footer) {
+                if (scrollY > windowHeight * 1.8) footer.classList.add('visible');
+                else footer.classList.remove('visible');
+            }
+        }
+
+        // initial run and safe scroll listener
+        handleScroll();
+        updateStatus();
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        // theme toggle (works with the theme button present in the page)
+        if (themeButton) {
+            // restore saved theme
+            const saved = localStorage.getItem('theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
+
+            themeButton.addEventListener('click', () => {
+                const current = document.documentElement.getAttribute('data-theme') || 'light';
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+            });
+        }
+    });
+
+    // keep scrollToNext helper
+    function scrollToNext() {
+        window.scrollTo({
+            top: window.innerHeight * 0.6,
+            behavior: 'smooth'
+        });
+    }
+    </script>
+</body>
+</html>

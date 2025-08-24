@@ -22,6 +22,25 @@
 </head>
 <body>
     <div class="topbar">
+        <div style="display:flex;align-items:center;gap:0.6rem;">
+            <button id="back-button" onclick="history.back()" aria-label="Go back" title="Go back"
+                style="display:flex;align-items:center;gap:0.5rem;padding:0.35rem 0.6rem;border-radius:10px;background:var(--blur-bg);backdrop-filter:blur(8px);border:1px solid var(--border);color:var(--text);cursor:pointer;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6"></path>
+                </svg>
+                <span style="font-size:0.95rem;">Back</span>
+            </button>
+
+            <a href="/" aria-label="Home" title="Home"
+                style="display:flex;align-items:center;gap:0.4rem;padding:0.35rem 0.6rem;border-radius:10px;background:transparent;border:1px solid transparent;color:var(--text-secondary);text-decoration:none;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 11l9-7 9 7"></path>
+                    <path d="M9 22V12h6v10"></path>
+                </svg>
+                <span style="font-size:0.85rem;">Home</span>
+            </a>
+        </div>
+
         <button id="theme-button" type="button">🎨</button>
         <button id="logout-button" type="button">Logout</button>
         <span id="token-status" aria-live="polite"></span>
@@ -103,6 +122,35 @@
         async function sendMessage() {
             const text = chatInput.value.trim();
             if (!text) return;
+
+            const loadingEl = document.createElement('div');
+            loadingEl.className = 'chat-message ai-message loading';
+            loadingEl.textContent = 'Thinking';
+            chatMessages.appendChild(loadingEl);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            let dotCount = 0;
+            const dotInterval = setInterval(() => {
+                dotCount = (dotCount + 1) % 4;
+                loadingEl.textContent = 'Thinking' + '.'.repeat(dotCount);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 400);
+
+            const observer = new MutationObserver((mutations) => {
+                for (const m of mutations) {
+                    for (const node of m.addedNodes) {
+                        if (!(node instanceof Element)) continue;
+                        if (node === loadingEl) continue;
+                        if (node.classList.contains('ai-message')) {
+                            clearInterval(dotInterval);
+                            observer.disconnect();
+                            loadingEl.remove();
+                            return;
+                        }
+                    }
+                }
+            });
+            observer.observe(chatMessages, { childList: true });
 
             addMessage(text, true);
             chatInput.value = '';
